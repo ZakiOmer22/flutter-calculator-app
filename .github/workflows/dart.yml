@@ -1,16 +1,13 @@
-name: Build Flutter APK
+name: Flutter APK Build
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
-  build-apk:
-    name: Build Flutter APK
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,12 +17,12 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          flutter-version: 'stable'  # Or specify exact version like '3.10.5'
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Run flutter analyze
+      - name: Analyze project
         run: flutter analyze
 
       - name: Run tests
@@ -34,8 +31,8 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload APK as artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: release-apk
+          name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
