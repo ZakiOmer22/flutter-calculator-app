@@ -42,6 +42,18 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+    buildscript {
+    ext.kotlin_version = '1.7.10'  // <-- Make sure this is compatible and set
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'  // Check compatibility
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 }
 
 flutter {
